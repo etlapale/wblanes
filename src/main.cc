@@ -23,12 +23,10 @@ int main(int argc, char* argv[])
 
   auto wblanes = new WBLanes(argc, argv);
   
-  // Get the image
-  auto img = win->findChild<QObject*>("image");
-  wblanes->img = img;
-  
-  QObject::connect(img, SIGNAL(areaSelected(double,double,double,double)),
-		   wblanes, SLOT(onAreaSelected(double,double,double,double)));
+  // Associate the QML items to the controller
+  wblanes->setImageItem(win->findChild<QObject*>("image"));
+  wblanes->setPlotItem(win->findChild<QObject*>("plot"));
+  wblanes->setRatioLabelItem(win->findChild<QObject*>("ratioLabel"));
 
   return app.exec();
 }
