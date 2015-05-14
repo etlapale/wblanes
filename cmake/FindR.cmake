@@ -49,9 +49,6 @@ FATAL_ERROR
 "/usr/local/lib /usr/local/lib64 /usr/share ${R_ROOT_DIR}"
 )
 endif()
-file(GLOB_RECURSE RCPP_HINT "${R_HOME}/*/Rcpp.h")
-string(REGEX REPLACE "/Rcpp.h$" "" RCPP_HINT "${RCPP_HINT}")
-find_path(Rcpp_INCLUDE_DIR "Rcpp.h" HINTS "${RCPP_HINT}")
 find_library(R_LIBRARY_BASE R
 HINTS ${R_ROOT_DIR}/lib ${R_ROOT_DIR}/bin/${R_LIB_ARCH}
 DOC "R library (example libR.a, libR.dylib, etc.).")

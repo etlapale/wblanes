@@ -34,7 +34,6 @@ ApplicationWindow {
 
     ScrollView {
         anchors.fill: parent
-        anchors.margins: 4
         
         Image {
             Layout.fillWidth: true

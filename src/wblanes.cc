@@ -5,6 +5,11 @@
 
 namespace wblanes {
 
+WBLanes::WBLanes(int argc, char* argv[])
+  : m_R(argc, argv)
+{
+}
+
 void WBLanes::onAreaSelected(double rx, double ry,
 			     double rwidth, double rheight)
 {
@@ -68,6 +73,27 @@ void WBLanes::onAreaSelected(double rx, double ry,
   
   using namespace necomi::streams;
   std::cout << line << std::endl;
+
+  // Pass the data to R
+  Rcpp::NumericVector rys(line.dim(0));
+  for (auto i = 0UL; i < line.dim(0); i++)
+    rys(i) = line(i);
+  m_R["ys"] = rys;
+
+  // Run the fit code
+  m_R.parseEvalQ("xs <- seq(0, length(ys)-1)\n"
+		 "df <- data.frame(x=xs, y=ys)\n"
+		 "fit <- nls(y ~ (off + c1 * exp(-(x-mu1)**2/(2*sg1**2))"
+		 "                    + c2 * exp(-(x-mu2)**2/(2*sg2**2))),"
+		 "           data=df,"
+		 "           start=list(off = 90, c1=120, mu1=30, sg1=10,"
+		 "                      c2=120, mu2=60, sg2=10),"
+		 "           algorithm='port')\n");
+  m_R.parseEvalQ("print(summary(fit))");
+  
+  //m_R["ys"] = vline;
+  
+  //m_R.parseEvalQ("print(ys); print(class(ys));");
   
   //std::cout << selection.dims() << std::endl
   //<< selection.strides() << std::endl;

@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
   auto win = qobject_cast<QQuickWindow*>(eng->rootObjects().value(0));
   win->show();
 
-  auto wblanes = new WBLanes;
+  auto wblanes = new WBLanes(argc, argv);
   
   // Get the image
   auto img = win->findChild<QObject*>("image");

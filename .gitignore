@@ -10,3 +10,4 @@ CMakeCache.txt
 moc_*.cpp
 #*#
 .#*
+.R*
