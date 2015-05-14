@@ -32,6 +32,19 @@ ApplicationWindow {
         }
     }
 
+    statusBar: StatusBar {
+        RowLayout {
+            Label {
+                id: posLabel
+            }
+            Label {
+                id: selSizeLabel
+                visible: false
+                text: selection.width + "×" + selection.height
+            }
+        }
+    }
+
     ScrollView {
         anchors.fill: parent
         
@@ -47,23 +60,30 @@ ApplicationWindow {
 
             MouseArea {
                 anchors.fill: parent
+                hoverEnabled: true
                 onPressed: {
                     selection.visible = true
                     image.x0 = selection.x = mouse.x
                     image.y0 = selection.y = mouse.y
                     selection.width = selection.height = 0
+                    selSizeLabel.visible = true
                 }
                 onPositionChanged: {
-                    selection.x = Math.min(image.x0, mouse.x)
-                    selection.y = Math.min(image.y0, mouse.y)
-                    selection.width = Math.abs(mouse.x - image.x0)
-                    selection.height = Math.abs(mouse.y - image.y0)
+                    if (pressed) {
+                        selection.x = Math.min(image.x0, mouse.x)
+                        selection.y = Math.min(image.y0, mouse.y)
+                        selection.width = Math.abs(mouse.x - image.x0)
+                        selection.height = Math.abs(mouse.y - image.y0)
+                    }
+                    posLabel.text = "("+mouse.x+","+mouse.y+")"
                 }
                 onReleased: {
-                    image.areaSelected(Math.min(image.x0, mouse.x),
-                                       Math.min(image.y0, mouse.y),
-                                       Math.abs(image.x0 - mouse.x),
-                                       Math.abs(image.y0 - mouse.y))
+                    var w = Math.abs(image.x0 - mouse.x);
+                    var h = Math.abs(image.y0 - mouse.y);
+                    if (w * h > 100 && h > 40)
+                        image.areaSelected(Math.min(image.x0, mouse.x),
+                                           Math.min(image.y0, mouse.y),
+                                           w, h)
                 }
             }
 
