@@ -12,7 +12,7 @@ using namespace wblanes;
 int main(int argc, char* argv[])
 {
   QGuiApplication app(argc, argv);
-
+  
   // Load the QML UI description
   auto eng = new QQmlApplicationEngine;
   eng->load(QUrl::fromLocalFile("qml/wblanes.qml"));

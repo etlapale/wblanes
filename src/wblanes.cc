@@ -133,18 +133,19 @@ void WBLanes::onAreaSelected(double rx, double ry,
   m_R.parseEvalQ("print(summary(fit))");
 
   // Generate fitted data to be plotted
-  m_R.parseEvalQ("k <- coef(fit)\n"
-		 "fitdat <- data.frame(x=xs)\n"
+  m_R.parseEvalQ("xss <- seq(0, length(ys-1), 0.25)\n"
+		 "k <- coef(fit)\n"
+		 "fitdat <- data.frame(x=xss)\n"
 		 "fitdat$y <- predict(fit, newdata=fitdat)\n"
-		 "fitg1 <- data.frame(x=xs)\n"
-		 "fitg1$y <- k[['off']] + k[['c1']] * exp(-(xs-k[['mu1']])**2/(2*k[['sg1']]**2))\n"
-		 "fitg2 <- data.frame(x=xs)\n"
-		 "fitg2$y <- k[['off']] + k[['c2']] * exp(-(xs-k[['mu2']])**2/(2*k[['sg2']]**2))\n");
+		 "fitg1 <- data.frame(x=xss)\n"
+		 "fitg1$y <- k[['off']] + k[['c1']] * exp(-(xss-k[['mu1']])**2/(2*k[['sg1']]**2))\n"
+		 "fitg2 <- data.frame(x=xss)\n"
+		 "fitg2$y <- k[['off']] + k[['c2']] * exp(-(xss-k[['mu2']])**2/(2*k[['sg2']]**2))\n");
 
   // Get the areas and display them
   double area1 = m_R.parseEval("k[['c1']]*abs(k[['sg1']])*sqrt(pi)");
   double area2 = m_R.parseEval("k[['c2']]*abs(k[['sg2']])*sqrt(pi)");
-  auto ratio_fmt = QString("A1=%1 A2=%2 A1/(A1+A2)=%3").arg(area1).arg(area2).arg(area1/(area1+area2));
+  auto ratio_fmt = QString("A1=%1 A2=%2 A1/(A1+A2)=%3% [%4%]").arg(area1).arg(area2).arg(100.*area1/(area1+area2)).arg(100.*(1.-area1/(area1+area2)));
   qDebug() << ratio_fmt;
   if (m_ratio_label != nullptr)
     m_ratio_label->setProperty("text", ratio_fmt);
