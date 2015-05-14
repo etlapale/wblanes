@@ -1,0 +1,3 @@
+[submodule "necomi"]
+	path = necomi
+	url = https://git.atelo.org/etlapale/necomi.git

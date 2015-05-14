@@ -39,6 +39,9 @@ ApplicationWindow {
         Image {
             Layout.fillWidth: true
             id: image
+            objectName: "image"
+
+            signal areaSelected(real x, real y, real width, real height)
 
             property real x0
             property real y0
@@ -58,12 +61,16 @@ ApplicationWindow {
                     selection.height = Math.abs(mouse.y - image.y0)
                 }
                 onReleased: {
-                    //selection.visible = false
+                    image.areaSelected(Math.min(image.x0, mouse.x),
+                                       Math.min(image.y0, mouse.y),
+                                       Math.abs(image.x0 - mouse.x),
+                                       Math.abs(image.y0 - mouse.y))
                 }
             }
 
             Rectangle {
                 id: selection
+                visible: false
                 opacity: 0.35
                 color: "yellow"
                 width: 100
