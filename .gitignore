@@ -1,0 +1,9 @@
+*~
+*.dat
+*.png
+wblanes
+*_automoc.cpp
+cmake_install.cmake
+Makefile
+CMakeFiles
+CMakeCache.txt
