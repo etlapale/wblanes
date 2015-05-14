@@ -2,6 +2,8 @@
 
 #include <QtCore>
 
+#include <RInside.h>
+
 namespace wblanes {
 
 class WBLanes : public QObject

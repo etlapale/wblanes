@@ -70,12 +70,8 @@ if __name__ == '__main__':
         sel = 255 - average(img[y0:y1,x0:x1],2)
         # Average across x’s
         ysel = average(sel,1)
-        # Get a single line (at the center)
         line = ysel
         xs = mgrid[0:line.shape[0]]
-        p0 = array([20, 10, 150, 50, 10, 160, 90])
-        savetxt('xs.dat', xs, newline=', ')
-        savetxt('line.dat', line, newline=', ')
 
         # Pass the data to R
         rxs = robjects.FloatVector(xs)
