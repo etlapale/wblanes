@@ -143,10 +143,15 @@ void WBLanes::onAreaSelected(double rx, double ry,
 		 "fitg2$y <- k[['off']] + k[['c2']] * exp(-(xss-k[['mu2']])**2/(2*k[['sg2']]**2))\n");
 
   // Get the areas and display them
+  double mu1 = m_R.parseEval("k[['mu1']]");
+  double mu2 = m_R.parseEval("k[['mu2']]");
   double area1 = m_R.parseEval("k[['c1']]*abs(k[['sg1']])*sqrt(pi)");
   double area2 = m_R.parseEval("k[['c2']]*abs(k[['sg2']])*sqrt(pi)");
-  auto ratio_fmt = QString("A1=%1 A2=%2 A1/(A1+A2)=%3% [%4%]").arg(area1).arg(area2).arg(100.*area1/(area1+area2)).arg(100.*(1.-area1/(area1+area2)));
+
+  bool order = mu1 < mu2;
+  auto ratio_fmt = QString("A1=%1 A2=%2 A1/(A1+A2)=%3% [%4%]").arg(order ? area1 : area2).arg(order ? area2 : area1).arg(100.*(order ? area1 : area2)/(area1+area2)).arg(100.*((order ? area2 : area1)/(area1+area2)));
   qDebug() << ratio_fmt;
+  
   if (m_ratio_label != nullptr)
     m_ratio_label->setProperty("text", ratio_fmt);
 
