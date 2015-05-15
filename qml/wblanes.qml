@@ -57,11 +57,12 @@ ApplicationWindow {
         ScrollView {
             //anchors.fill: parent
             Layout.fillWidth: true
-            
+
             Image {
                 id: image
                 objectName: "image"
                 Layout.fillWidth: true
+                //anchors.fill: parent
 
                 signal areaSelected(real x, real y, real width, real height)
 
@@ -88,12 +89,16 @@ ApplicationWindow {
                         posLabel.text = "("+mouse.x+","+mouse.y+")"
                     }
                     onReleased: {
-                        var w = Math.abs(image.x0 - mouse.x);
-                        var h = Math.abs(image.y0 - mouse.y);
-                        if (w * h > 100 && h > 40)
-                        image.areaSelected(Math.min(image.x0, mouse.x),
-                        Math.min(image.y0, mouse.y),
-                        w, h)
+                        image.areaSelected(selection.x, selection.y,
+                                           selection.width, selection.height)
+                    }
+                }
+
+                DropArea {
+                    anchors.fill: parent
+                    onExited : {
+                        image.areaSelected(selection.x, selection.y,
+                                           selection.width, selection.height)
                     }
                 }
 
@@ -105,6 +110,14 @@ ApplicationWindow {
                     border.width: 1
                     width: 100
                     height: 100
+
+                    Drag.active: selDrag.drag.active
+
+                    MouseArea {
+                        id: selDrag
+                        anchors.fill: parent
+                        drag.target: parent
+                    }
                 }
             }
         }

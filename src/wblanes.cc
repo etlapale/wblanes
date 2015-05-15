@@ -39,6 +39,11 @@ void WBLanes::setRatioLabelItem(QObject* item)
 void WBLanes::onAreaSelected(double rx, double ry,
 			     double rwidth, double rheight)
 {
+  if (rwidth * rheight < 100 || rheight < 40) {
+    qDebug() << "ignoring small selection";
+    return;
+  }
+  
   if (m_img == nullptr) {
     qWarning() << "no image loaded, aborting selection analysis";
     return;
