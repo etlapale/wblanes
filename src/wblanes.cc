@@ -128,6 +128,7 @@ void WBLanes::onAreaSelected(double rx, double ry,
     // TODO: check reason
     // TODO: clear plot
     qWarning() << "could not fit the data";
+    clearPlot();
     return;
   }
   m_R.parseEvalQ("print(summary(fit))");
@@ -172,14 +173,18 @@ void WBLanes::onAreaSelected(double rx, double ry,
   plotSvg(plotfile);
 }
 
+void WBLanes::clearPlot()
+{
+  m_plot->setProperty("source", QUrl());
+}
+
 void WBLanes::plotSvg(const QString& path)
 {
   if (m_plot == nullptr) {
     qWarning() << "plot item not found, aborting result display";
     return;
   }
-
-  m_plot->setProperty("source", QUrl());
+  
   m_plot->setProperty("source", QUrl::fromLocalFile(path));
 }
 

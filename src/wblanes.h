@@ -27,6 +27,7 @@ protected:
   QObject* m_ratio_label;
 
   void plotSvg(const QString& path);
+  void clearPlot();
 };
 
 } // namespace wblanes
