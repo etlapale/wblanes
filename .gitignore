@@ -11,3 +11,7 @@ moc_*.cpp
 #*#
 .#*
 .R*
+*.tif*
+fit-*.svg
+*.qrc.depends
+qrc_*.cpp

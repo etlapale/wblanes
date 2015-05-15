@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
   
   // Load the QML UI description
   auto eng = new QQmlApplicationEngine;
-  eng->load(QUrl::fromLocalFile("qml/wblanes.qml"));
+  eng->load(QUrl("qrc:/qml/wblanes.qml"));
 
   // Show the top level window
   auto win = qobject_cast<QQuickWindow*>(eng->rootObjects().value(0));
