@@ -102,6 +102,7 @@ ApplicationWindow {
                     visible: false
                     opacity: 0.35
                     color: "yellow"
+                    border.width: 1
                     width: 100
                     height: 100
                 }
