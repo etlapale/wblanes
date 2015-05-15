@@ -14,6 +14,11 @@ WBLanes::WBLanes(int argc, char* argv[])
   m_R.parseEvalQ("library(ggplot2)\n");
 }
 
+WBLanes::~WBLanes()
+{
+  erasePlotFile();
+}
+
 void WBLanes::setImageItem(QObject* item)
 {
   m_img = item;
@@ -105,9 +110,6 @@ void WBLanes::onAreaSelected(double rx, double ry,
   // Average to a single line
   auto line = average(selection, 1);
   
-  using namespace necomi::streams;
-  std::cout << line << std::endl;
-
   // Pass the data to R
   Rcpp::NumericVector rys(line.dim(0));
   for (auto i = 0UL; i < line.dim(0); i++)
@@ -157,20 +159,29 @@ void WBLanes::onAreaSelected(double rx, double ry,
     m_ratio_label->setProperty("text", ratio_fmt);
 
   // Generate a new name for the plot
-  // TODO: erase previous plotfiles
-  auto plotfile = QString("fit-%1.svg").arg(qrand());
+  erasePlotFile();
+  m_plotfile = QString("fit-%1.svg").arg(qrand());
   
   // Plot the data in an SVG file
   m_R.parseEvalQ(QString("plt <- ggplot(df, aes(x=x, y=y)) + geom_point()"
 			 "         + geom_smooth(data=fitdat, stat='identity', size=1.5)"
 			 "         + geom_smooth(data=fitg1, stat='identity')"
 			 "         + geom_smooth(data=fitg2, stat='identity')\n"
-			 "ggsave(file='%1', plot=plt, width=10, height=8)\n").arg(plotfile).toLocal8Bit().constData());
+			 "ggsave(file='%1', plot=plt, width=10, height=8)\n").arg(m_plotfile).toLocal8Bit().constData());
 
   // Convert the result to SVG Tiny
 
   // Display the plot
-  plotSvg(plotfile);
+  plotSvg(m_plotfile);
+}
+
+void WBLanes::erasePlotFile()
+{
+  if (! m_plotfile.isEmpty()) {
+    QFile f(m_plotfile);
+    if (f.exists())
+      f.remove();
+  }
 }
 
 void WBLanes::clearPlot()

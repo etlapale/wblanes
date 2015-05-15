@@ -28,5 +28,10 @@ int main(int argc, char* argv[])
   wblanes->setPlotItem(win->findChild<QObject*>("plot"));
   wblanes->setRatioLabelItem(win->findChild<QObject*>("ratioLabel"));
 
+  // Cleanup on exit
+  QObject::connect(&app, &QCoreApplication::aboutToQuit, [wblanes]() {
+      delete wblanes;
+    });
+
   return app.exec();
 }
