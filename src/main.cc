@@ -24,9 +24,14 @@ int main(int argc, char* argv[])
   auto wblanes = new WBLanes(argc, argv);
   
   // Associate the QML items to the controller
-  wblanes->setImageItem(win->findChild<QObject*>("image"));
+  auto img = win->findChild<QObject*>("image");
+  wblanes->setImageItem(img);
   wblanes->setPlotItem(win->findChild<QObject*>("plot"));
   wblanes->setRatioLabelItem(win->findChild<QObject*>("ratioLabel"));
+
+  // Open a file on command line argument
+  if (argc > 1)
+    img->setProperty("source", QUrl::fromLocalFile(argv[1]));
 
   // Cleanup on exit
   QObject::connect(&app, &QCoreApplication::aboutToQuit, [wblanes]() {
