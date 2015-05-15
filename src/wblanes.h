@@ -30,3 +30,7 @@ protected:
 };
 
 } // namespace wblanes
+
+// Local Variables:
+// mode: c++
+// End:
