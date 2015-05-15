@@ -16,6 +16,7 @@ ApplicationWindow {
         title: "Select an image to load"
         onAccepted: {
             image.source = fileUrl;
+            selection.visible = false
         }
     }
 
