@@ -15,3 +15,4 @@ moc_*.cpp
 fit-*.svg
 *.qrc.depends
 qrc_*.cpp
+doc/build
