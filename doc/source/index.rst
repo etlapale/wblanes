@@ -1,22 +1,34 @@
-.. wblanes documentation master file, created by
-   sphinx-quickstart on Fri May 15 21:03:42 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+wblanes
+=======
 
-Welcome to wblanes's documentation!
-===================================
+wblanes is a graphical software to quantify areas typically found in
+`western blots`_.
 
-Contents:
+.. image:: screenshot-1.png
+   :scale: 40%
+
+In particular, wblanes allows to quantify overlapping bands by fitting
+sum of functions and infering their areas.
+
+wblanes is released under the :doc:`Simplified BSD License <license>`.
+
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 2
 
+   install
+   usage
 
+.. _western blots: https://en.wikipedia.org/wiki/Western_blot
 
-Indices and tables
-==================
+Download
+--------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+`Project website <https://git.atelo.org/etlapale/wblanes>`_
 
+.. toctree::
+   :hidden:
+
+   license
