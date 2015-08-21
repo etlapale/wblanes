@@ -39,8 +39,8 @@ OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(R_HOME ${R_ROOT_DIR} CACHE PATH "R home directory obtained from R RHOME")
 find_path(R_INCLUDE_DIR R.h
 HINTS ${R_ROOT_DIR}
-PATHS /usr/local/lib /usr/local/lib64 /usr/share
-PATH_SUFFIXES include R/include
+PATHS /usr/local/lib /usr/local/lib64 /usr/share /usr
+PATH_SUFFIXES include R/include include/R
 DOC "Path to file R.h")
 if(NOT R_INCLUDE_DIR)
 message(
