@@ -37,6 +37,9 @@ ApplicationWindow {
     statusBar: StatusBar {
         RowLayout {
             Label {
+                id: fileLabel
+            }
+            Label {
                 id: posLabel
             }
             Label {
