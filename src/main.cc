@@ -4,6 +4,7 @@
 // Licensed under the Simplified BSD License.
 
 #include <QtQuick>
+#include <QtWidgets>
 
 #include "wblanes.h"
 using namespace wblanes;
@@ -11,7 +12,7 @@ using namespace wblanes;
 
 int main(int argc, char* argv[])
 {
-  QGuiApplication app(argc, argv);
+  QApplication app(argc, argv);
   
   // Load the QML UI description
   auto eng = new QQmlApplicationEngine;

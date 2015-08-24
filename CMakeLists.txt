@@ -19,6 +19,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RCPP_CXXFLAGS} ${RINSIDE_CXXFLAGS}")
 
 qt5_add_resources (wblanes_qrc wblanes.qrc)
 add_executable(wblanes src/main.cc src/wblanes.cc ${wblanes_qrc})
-qt5_use_modules(wblanes Core Gui Qml Quick)
+qt5_use_modules(wblanes Core Gui Qml Quick Widgets)
 include_directories(wblanes ${R_INCLUDE_DIR} ${Rcpp_INCLUDE_DIR})
 target_link_libraries(wblanes ${R_LIBRARIES} ${RCPP_LDFLAGS} ${RINSIDE_LDFLAGS})
